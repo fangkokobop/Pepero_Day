@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김이겸에게 보내는 편지 ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #fff6f8;
+  background-image:
+    radial-gradient(ellipse at 18% 22%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 78% 65%, rgba(218,157,174,.13) 0 1px, transparent 2px),
+    repeating-linear-gradient(0deg, rgba(177,126,139,.035) 0px, rgba(177,126,139,.035) 1px, transparent 1px, transparent 5px),
+    linear-gradient(135deg,#fffaf8,#fbeaf0 55%,#fff5f6);
+  background-size: 17px 19px,23px 21px,100% 5px,100% 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #704d5c;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px 15px;
+}
+
+.card {
+  width: min(100%,680px);
+  padding: clamp(24px,6vw,50px);
+  text-align: center;
+  background-color: #fffdfb;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 31px,
+      rgba(214,158,174,.10) 32px
+    ),
+    radial-gradient(
+      ellipse at 12% 10%,
+      rgba(255,255,255,.9),
+      transparent 55%
+    );
+  border: 1px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 24px 70px #b9829630;
+  position: relative;
+}
+
+.card:before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(222,169,184,.28);
+  pointer-events: none;
+}
+
+.card:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background: linear-gradient(90deg,#f6cada,#fbe9ed,#f2bfd0);
+}
+
+.eyebrow {
+  letter-spacing: 4px;
+  font-size: 11px;
+  color: #d8759d;
+  font-weight: bold;
+}
+
+h1 {
+  font: clamp(45px,9vw,65px) 'Gowun Batang',serif;
+  color: #d9789f;
+  margin: 14px 0 8px;
+}
+
+.name {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.sub {
+  font: 15px 'Gowun Batang',serif;
+  color: #a17b8b;
+}
+
+.illustration {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.stick {
+  height: 105px;
+  width: 20px;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#b9784f,#e9b58b,#a86642);
+  transform: rotate(-13deg);
+  position: relative;
+}
+
+.stick:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 20px;
+  height: 42px;
+  border-radius: 12px;
+  background: #914d42;
+}
+
+.stick:last-child {
+  transform: rotate(13deg);
+  height: 112px;
+}
+
+.heart {
+  font-size: 29px;
+  color: #ed8eb1;
+  animation: pulse 1.5s infinite;
+}
+
+/* Envelope */
+
+.envelope-area {
+  height: 190px;
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+}
+
+.envelope {
+  width: 230px;
+  height: 145px;
+  position: relative;
+  cursor: pointer;
+  filter: drop-shadow(0 12px 14px #c77c9a35);
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  background: #f4b5cb;
+  border-radius: 8px;
+}
+
+.paper {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 10px;
+  height: 112px;
+  background: #fff;
+  border-radius: 5px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #d4779b;
+  font: 17px 'Gowun Batang';
+  transition: transform .8s;
+}
+
+.front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg,#f8c8d9,#ed9fbd);
+  clip-path: polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);
+  z-index: 3;
+  border-radius: 8px;
+}
+
+.flap {
+  position: absolute;
+  inset: 0;
+  background: #e995b5;
+  clip-path: polygon(0 0,100% 0,50% 62%);
+  transform-origin: top;
+  transition: transform .7s;
+  z-index: 4;
+}
+
+.seal {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%,-50%);
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  background: #fff1f6;
+  color: #d8759d;
+  display: grid;
+  place-items: center;
+  transition: opacity .3s;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope.open .paper {
+  transform: translateY(-95px);
+  transition-delay: .35s;
+  z-index: 2;
+}
+
+.envelope.open .seal {
+  opacity: 0;
+}
+
+/* Buttons and letter */
+
+.hint {
+  font-size: 12px;
+  color: #b38b9c;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 23px;
+  background: linear-gradient(110deg,#ed9fbd,#d9759d);
+  color: white;
+  font: 600 14px 'Noto Sans KR';
+  cursor: pointer;
+  box-shadow: 0 8px 20px #d9759d35;
+}
+
+button:disabled {
+  opacity: .7;
+}
+
+.letter {
+  display: none;
+  text-align: left;
+  margin: 22px 0 0;
+  padding: clamp(20px,5vw,28px);
+  background: #fff8fb;
+  border: 1px solid #f8dce7;
+  border-radius: 20px;
+  line-height: 2.05;
+  font: 15px 'Gowun Batang',serif;
+  animation: rise .8s;
+}
+
+.letter.show {
+  display: block;
+}
+
+.letter p {
+  margin: 0 0 13px;
+}
+
+.sign {
+  text-align: right;
+  color: #d4779b;
+  font-weight: bold;
+  margin-top: 18px;
+}
+
+/* Music */
+
+.music {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 18px auto 0;
+}
+
+.music button {
+  padding: 10px 17px;
+  font-size: 12px;
+  background: white;
+  color: #d4779b;
+  border: 1px solid #f2c6d7;
+  box-shadow: none;
+}
+
+.volume {
+  width: 90px;
+  accent-color: #d9759d;
+}
+
+.foot {
+  margin-top: 23px;
+  font-size: 11px;
+  color: #b38b9c;
+  letter-spacing: 1px;
+}
+
+/* Floating hearts */
+
+.float {
+  position: fixed;
+  bottom: -30px;
+  color: #e98fb0;
+  pointer-events: none;
+  animation: up linear infinite;
+  opacity: 0;
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: .65;
+  }
+  100% {
+    transform: translateY(-115vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main>
+<section class="card">
+
+  <div class="eyebrow">
+    11월 11일 · 빼빼로데이
+  </div>
+
+  <h1>For You ♡</h1>
+
+  <p class="name">김이겸</p>
+
+  <p class="sub">
+    사랑을 가득 담은 작은 편지
+  </p>
+
+  <div class="illustration">
+    <div class="stick"></div>
+    <div class="heart">♡</div>
+    <div class="stick"></div>
+  </div>
+
+  <div class="envelope-area">
+    <div class="envelope" id="envelope"
+      onclick="openLetter()"
+      role="button" tabindex="0">
+
+      <div class="back"></div>
+      <div class="paper">To. 이겸 ♡</div>
+      <div class="front"></div>
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+
+    </div>
+  </div>
+
+  <p class="hint" id="hint">
+    봉투를 눌러 편지를 열어 봐 ♡
+  </p>
+
+  <button id="openBtn" onclick="openLetter()">
+    편지 열기 ♡
+  </button>
+
+<article class="letter" id="letter">
+
+  <p>사랑하는 김이겸 오빠, My Honey ♡</p>
+
+  <p>빼빼로데이 축하해 ♡</p>
+
+  <p>
+    오늘은 오빠에게 조금 더 특별하고 달콤한 마음을 전하고 싶어서
+    이렇게 편지를 쓰게 됐어요. 평소에는 쑥스러워서 다 표현하지 못했던
+    마음들을 오늘은 이 작은 편지에 하나하나 담아 보려고 해요.
+    비록 짧은 편지 한 장이지만, 오빠를 생각하는 제 마음만큼은
+    아주 크고 진심이라는 걸 알아줬으면 좋겠어요.
+  </p>
+
+  <p>
+    평범한 하루에 작은 미소가 되어 줘서 고마워요.
+    오빠와 이야기를 나누는 시간은 저에게 참 소중해요.
+    특별한 이야기를 하지 않아도, 그저 사소한 일상을 나누는 것만으로도
+    마음이 편안해지고 기분이 좋아져요.
+    가끔은 오빠의 말 한마디에 하루 종일 웃기도 하고,
+    문득 오빠가 생각나서 혼자 미소 짓기도 해요.
+    오빠는 모르겠지만, 제 일상 속에 오빠가 조금씩 스며들고 있는 것 같아요.
+  </p>
+
+  <p>
+    오늘 하루도 오빠에게 다정하고 행복한 일들로 가득했으면 좋겠어요.
+    힘든 일이 있더라도 너무 오래 마음에 담아 두지 않았으면 좋겠고,
+    지치는 날에는 잠시 쉬어 가도 괜찮아요.
+    언제나 건강 잘 챙기고, 밥도 잘 먹고, 충분히 쉬었으면 좋겠어요.
+    멀리서나마 오빠가 매일 건강하고 행복하기를 진심으로 바라고 있어요.
+  </p>
+
+  <p>
+    빼빼로의 달콤함이 오늘을 조금 더 특별하게 만들어 주듯이,
+    제 마음도 오빠를 살짝 웃게 해 줄 수 있으면 좋겠어요.
+    오빠와 이야기할 때면 마음이 참 편안해져요.
+    때로는 장난스럽게 웃고, 때로는 서로에게 솔직한 마음을 나누는
+    그 모든 순간이 좋아요.
+    우리 함께했던 뜨거운 밤들도 제게는 특별하고 소중한 기억으로 남아 있어요.
+    그런 순간들을 떠올리면 지금도 괜히 미소가 지어져요. ^^
+  </p>
+
+  <p>
+    가끔은 오빠가 지금 무엇을 하고 있을지,
+    오늘은 어떤 하루를 보내고 있을지 궁금해져요.
+    맛있는 것을 먹었는지, 피곤하지는 않은지,
+    오늘도 많이 웃었는지 알고 싶어요.
+    직접 옆에 있었다면 맛있는 것도 함께 먹고,
+    사소한 이야기도 나누면서 오빠의 하루를 더 가까이에서 함께하고 싶어요.
+    언젠가는 그런 평범하고 소소한 행복을 함께 누릴 수 있으면 좋겠어요.
+  </p>
+
+  <p>
+    앞으로도 우리가 아름다운 추억과 맛있는 간식들을 함께 나눌 수 있기를 바라요.
+    새로운 계절이 찾아오고 시간이 흘러도 서로에게 좋은 기억으로 남았으면 좋겠어요.
+    함께 웃을 수 있는 날들이 더 많아지고,
+    서로의 일상에 자연스럽게 스며드는 사이가 되었으면 해요.
+  </p>
+
+  <p>
+    비록 몸은 멀리 떨어져 있어도 마음만은 멀어지지 않았으면 좋겠어요.
+    우리는 같은 하늘 아래 있으니까요.
+    가끔 오빠가 하늘을 올려다볼 때마다 저를 한 번쯤 떠올려 줬으면 좋겠어요.
+    저도 같은 하늘을 바라보면서 오빠를 생각할게요.
+    서로 다른 곳에 있어도 같은 하늘을 보고 있다는 사실만으로
+    조금은 가까워진 기분이 들 것 같아요.
+  </p>
+
+  <p>
+    요즘 날씨가 점점 추워지고 있는데,
+    감기 걸리지 않도록 따뜻하게 입고 다녔으면 좋겠어요.
+    제가 직접 옆에서 안아 주고 따뜻하게 해 줄 수는 없지만,
+    이 편지만큼은 오빠에게 작은 담요처럼 포근하게 전해졌으면 좋겠어요.
+    이 글을 읽는 동안만큼은 오빠의 마음도 따뜻해졌으면 좋겠어요.
+  </p>
+
+  <p>
+    그리고 오빠, 한 가지 꼭 말해 주고 싶은 게 있어요.
+    오빠를 알게 되고 이렇게 서로의 이야기를 나눌 수 있다는 게
+    참 기쁘고 감사해요.
+    앞으로 어떤 날들이 우리를 기다리고 있을지는 모르지만,
+    지금처럼 서로에게 좋은 마음을 전하면서
+    예쁜 순간들을 하나씩 만들어 갔으면 좋겠어요.
+  </p>
+
+  <p>
+    빼빼로는 여러 개지만,
+    이 달콤함을 나누고 싶은 사람은 오직 오빠 한 사람뿐이에요. ♡
+  </p>
+
+  <p>
+    오늘 제가 보낸 작은 편지가 오빠에게 기분 좋은 선물이 되었으면 좋겠어요.
+    언제나 오빠의 하루에 달콤한 미소가 가득하기를 바라요.
+  </p>
+
+  <p>
+    빼빼로데이 축하해요, My Honey.<br>
+    그리고 오늘도 많이 보고 싶어요. ♡
+  </p>
+
+  <div class="sign">
+    사랑을 가득 담아, ♡<br><br>
+    언제나 오빠를 생각하고,<br>
+    오빠의 행복을 바라는 사람,<br><br>
+    카오팡 ♡
+  </div>
+
+</article>
+
+  <div class="music">
+
+    <button id="musicBtn" onclick="toggleMusic()">
+      ♫ 음악 재생
+    </button>
+
+    <span style="font-size:11px;color:#a17b8b">
+      I Will Always Love You
+    </span>
+
+    <input class="volume"
+      id="volume"
+      type="range"
+      min="0"
+      max="1"
+      step=".05"
+      value=".45">
+
+  </div>
+
+  <audio id="bgMusic"
+    src="I Will Always Love You.mp3"
+    preload="auto"
+    loop>
+  </audio>
+
+  <div class="foot">
+    MADE WITH LOVE · JUST FOR 김이겸
+  </div>
+
+</section>
+</main>
+
+<script>
+let opened = false;
+
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+
+music.volume = .45;
+
+function openLetter() {
+
+  if (opened) return;
+
+  opened = true;
+
+  document.getElementById('envelope')
+    .classList.add('open');
+
+  document.getElementById('hint').textContent =
+    '너에게 전하는 나의 작은 마음 ♡';
+
+  document.getElementById('openBtn').textContent =
+    '이 편지는 너를 위한 거야 ♡';
+
+  document.getElementById('openBtn').disabled = true;
+
+  setTimeout(() => {
+    document.getElementById('letter')
+      .classList.add('show');
+  }, 650);
+
+  playMusic();
+}
+
+async function playMusic() {
+
+  try {
+    await music.play();
+    musicBtn.textContent = '♫ 음악 일시정지';
+  } catch (e) {
+    musicBtn.textContent = '♫ 음악 재생';
+  }
+
+}
+
+function toggleMusic() {
+
+  if (music.paused) {
+    playMusic();
+  } else {
+    music.pause();
+    musicBtn.textContent = '♫ 음악 재생';
+  }
+
+}
+
+document.getElementById('volume')
+  .addEventListener('input', e => {
+    music.volume = Number(e.target.value);
+  });
+
+// Floating hearts
+for (let i = 0; i < 22; i++) {
+
+  const x = document.createElement('span');
+
+  x.className = 'float';
+  x.textContent = ['♡','✧','♥','ღ'][i % 4];
+
+  x.style.left = Math.random() * 100 + 'vw';
+  x.style.animationDelay = Math.random() * 9 + 's';
+  x.style.animationDuration =
+    (7 + Math.random() * 8) + 's';
+
+  x.style.fontSize =
+    (13 + Math.random() * 18) + 'px';
+
+  document.body.appendChild(x);
+
+}
+
+</script>
+
+</body>
+</html>
